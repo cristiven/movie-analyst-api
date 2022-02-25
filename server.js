@@ -4,10 +4,11 @@ var app = express();
 //------------
 var mysql = require("mysql");
 var connection = mysql.createConnection({
-  host     : process.env.DB_HOST || '10.0.0.12',
-  user     : process.env.DB_USER || 'root',
-  password : process.env.DB_PASS || 'root',
-  database : process.env.DB_NAME || 'movie_db'
+    host: process.env.DB_HOST || '10.0.0.12',
+    port: process.env.DB_PORT || '3306',
+    user: process.env.DB_USER || 'root',
+    password : process.env.DB_PASS || 'root',
+    database : process.env.DB_NAME || 'movie_db'
 });
 
 connection.connect();
@@ -63,14 +64,14 @@ app.get('/', function(req, res){
 //  res.json(movies);
 //})
 
-//app.get('/', function(req, res, next) {   
+app.get('/', function(req, res, next) {   
     //now you can call the get-driver, passing a callback function
-//    getMovies(function (err, moviesResult){ 
+    getMovies(function (err, moviesResult){ 
        //you might want to do something is err is not null...      
-//       res.json(moviesResult);
+       res.json(moviesResult);
 
-//    });
-//});
+    });
+});
 
 // Implement the reviewers API endpoint
 //app.get('/reviewers', function(req, res){
@@ -84,8 +85,9 @@ app.get('/', function(req, res){
 //    {name: 'Anthony Miller', publication : 'ComicBookHero.com', avatar : 'https://s3.amazonaws.com/uifaces/faces/twitter/9lessons/128.jpg'}
 //  ];
 
-  res.json(authors);
-})
+//  res.json(authors);
+//})
+
 
 // Implement the publications API endpoint
 //app.get('/publications', function(req, res){
