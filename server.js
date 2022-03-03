@@ -38,7 +38,35 @@ function getReviewers(callback) {
     );
 }
 
+// Implement the movies API endpoint
+app.get('/movies', function (req, res, next) {
+    getMovies(function (err, moviesResult) {
+        res.json(moviesResult);
+    });
+})
 
+function getMovies(callback) {
+    connection.query("SELECT mr.title, mr.release, mr.score, mr.reviewer, r.name, r.publication FROM movie_db.moviereview AS mr INNER JOIN movie_db.reviewer AS r ON mr.reviewer = r.name",
+        function (err, rows) {
+            callback(err, rows);
+        }
+    );
+}
+
+// Implement the publications API endpoint
+app.get('/publications', function (req, res, next) {
+    getPublications(function (err, publicationsResult) {
+        res.json(publicationsResult);
+    });
+})
+
+function getPublications(callback) {
+    connection.query("SELECT * FROM movie_db.publication",
+        function (err, rows) {
+            callback(err, rows);
+        }
+    );
+}
 
 //-------------
 
