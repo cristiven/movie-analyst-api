@@ -71,12 +71,12 @@ function getPublications(callback) {
 
 // Implement the pending API endpoint
 app.get('/pending', function (req, res, next) {
-    getPublications(function (err, publicationsResult) {
+    getPending(function (err, publicationsResult) {
         res.json(publicationsResult);
     });
 })
 
-function getPublications(callback) {
+function getPending(callback) {
     connection.query("Select m.title, m.release, m.score, r.name as reviewer, p.name as publication from movie_db.moviereview m, movie_db.reviewer r, movie_db.publication p where r.publication=p.name and m.reviewer=r.name",
         function (err, rows) {
             callback(err, rows);
